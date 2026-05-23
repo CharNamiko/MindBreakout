@@ -1,0 +1,164 @@
+`MindBreakout Level Format
+=========================
+
+All levels are JSON files.
+
+Example:
+--------
+{
+    "Lives": 3
+}
+
+
+PARAMETERS
+==========
+
+Lives
+-----
+Type: Integer
+
+How many lives the player starts with.
+
+
+Difficulty
+----------
+Type: Integer (0 to 10)
+
+Controls how quickly the ball accelerates.
+
+0  = No acceleration
+10 = Extremely fast acceleration
+
+
+Ball_Starting_Speed
+-------------------
+Type: Float (0.1 to 1.0)
+
+Controls the initial speed of the ball.
+
+0.1 = Very slow
+1.0 = Very fast
+
+
+Background_Color
+----------------
+Type: List of Hex Colors
+
+Used as the background color if no background image exists.
+
+Example:
+[
+    "#000000",
+    "#111111"
+]
+
+
+Background_Sprite
+-----------------
+Type: String
+
+File name of background image.
+
+Leave blank to disable.
+
+Example:
+"background.png"
+
+
+Block_Colors
+------------
+Type: List of Hex Colors
+
+Colors used for blocks if no block sprites are used.
+
+
+Block_Sprites
+-------------
+Type: List of Strings
+
+Image file names for block sprites.
+
+Example:
+[
+    "brick1.png",
+    "brick2.png"
+]
+
+NOTE:
+Collision still uses rectangle hitboxes.
+
+
+Spiral_Speed
+------------
+Type: Float (0.0 to 1.0)
+
+Controls spiral rotation speed.
+
+0.0 = No spinning
+1.0 = Very fast spinning
+
+
+Spiral_Thickness
+----------------
+Type: Integer
+
+Controls line thickness of spiral.
+
+Higher values make the spiral stronger visually.
+
+
+Spiral_Colors
+-------------
+Type: List of Hex Colors
+
+Colors used in the spiral.
+
+At least two recommended.
+
+
+Phrases
+-------
+Type: List of Strings
+
+Words or phrases that appear during gameplay.
+
+Example:
+[
+    "FOCUS",
+    "DON'T BLINK"
+]
+
+
+Phrase_Appear_Speed
+-------------------
+Type: Float
+
+How many seconds it takes phrases to fully appear.
+
+Lower values = faster visibility.
+
+
+Phrase_Scroll_Speed
+-------------------
+Type: Float
+
+Controls how quickly phrases move across the screen.
+
+
+Phrase_Max_Count
+----------------
+Type: Integer
+
+Maximum number of simultaneous phrases visible.
+
+
+Phrase_Color
+------------
+Type: Hex Color
+
+Color of phrase text.
+
+Leave blank to use white.
+
+Example:
+"#ffffff"`
