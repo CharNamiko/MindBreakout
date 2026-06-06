@@ -1,0 +1,53 @@
+
+{
+    "Mode": "A",
+
+    "Lives": 9,
+
+    "Difficulty": 1,
+
+    "Ball_Starting_Speed": 0.2,
+
+    "Background_Color": [
+        "#050505"
+    ],
+
+    "Background_Sprite": "",
+
+    "Block_Colors": [
+        "#ff6666",
+        "#ffaa66",
+        "#ffff66",
+        "#66ffcc"
+    ],
+
+    "Block_Sprites": [],
+
+    "Paddle_Sprite": "",
+
+    "Overground_Sprite": "",
+
+    "Spiral_Speed": 0.5,
+
+    "Spiral_Thickness": 20,
+
+    "Spiral_Colors": [
+        "#ffffff",
+        "#4444ff",
+        "#ffffaa"
+    ],
+
+    "Phrases": [
+        "SLOW",
+        "GOOD",
+        "EASY"
+    ],
+
+    "Phrase_Appear_Speed": 20.0,
+
+    "Phrase_Scroll_Speed": 40,
+
+    "Phrase_Max_Count": 10,
+
+    "Phrase_Color": "#ffffff"
+}

@@ -2,11 +2,11 @@
 {
     "Mode": "A",
 
-    "Lives": 3,
+    "Lives": 1,
 
-    "Difficulty": 4,
+    "Difficulty": 10,
 
-    "Ball_Starting_Speed": 0.5,
+    "Ball_Starting_Speed": 1,
 
     "Background_Color": [
         "#050505"
@@ -30,27 +30,29 @@
 
     "Overground_Sprite": "",
 
-    "Spiral_Speed": 0.35,
+    "Spiral_Speed": 1,
 
-    "Spiral_Thickness": 2,
+    "Spiral_Thickness": 4,
 
     "Spiral_Colors": [
         "#ffffff",
-        "#000000",
-        "#aaaaaa"
+        "#44aaff",
+        "#ff4433"
     ],
 
     "Phrases": [
-        "FOCUS",
+        "FIGHT IT",
         "DON'T BLINK",
-        "KEEP WATCHING"
+        "KEEP WATCHING",
+        "DON'T STOP",
+        "WATCH THE BALL"
     ],
 
     "Phrase_Appear_Speed": 20.0,
 
     "Phrase_Scroll_Speed": 40,
 
-    "Phrase_Max_Count": 6,
+    "Phrase_Max_Count": 10,
 
     "Phrase_Color": "#ffffff"
 }

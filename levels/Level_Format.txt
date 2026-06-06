@@ -1,164 +1,555 @@
-`MindBreakout Level Format
-=========================
+==================================================
+MindBreakout - Level Format Guide
+==================================================
 
-All levels are JSON files.
+This file explains every option available in a level file.
+
+Levels are JSON files stored inside the "levels" folder.
 
 Example:
---------
+
+levels/
+├─ default_level.json
+├─ level1.json
+├─ boss_level.json
+
+The game automatically reads these files through the Level Select menu.
+
+If a value is missing from your level file, the game will automatically use a default value.
+
+
+==================================================
+BASIC LEVEL STRUCTURE
+==================================================
+
+Example:
+
 {
-    "Lives": 3
+    "Mode": "A",
+    "Lives": 3,
+    "Difficulty": 5
 }
 
-
-PARAMETERS
-==========
-
-Lives
------
-Type: Integer
-
-How many lives the player starts with.
+All other settings are optional.
 
 
-Difficulty
-----------
-Type: Integer (0 to 10)
+==================================================
+MODES
+==================================================
 
-Controls how quickly the ball accelerates.
+The game currently supports two different gameplay modes.
 
-0  = No acceleration
-10 = Extremely fast acceleration
+--------------------------------------------------
+Mode A
+--------------------------------------------------
 
+Traditional Breakout gameplay.
 
-Ball_Starting_Speed
--------------------
-Type: Float (0.1 to 1.0)
+The game creates a grid of blocks at the top of the screen.
 
-Controls the initial speed of the ball.
+The player must destroy all blocks to clear the level.
 
-0.1 = Very slow
-1.0 = Very fast
-
-
-Background_Color
-----------------
-Type: List of Hex Colors
-
-Used as the background color if no background image exists.
+Blocks can use:
+- Solid colors
+- Custom sprites
 
 Example:
+
+"Mode": "A"
+
+
+--------------------------------------------------
+Mode B
+--------------------------------------------------
+
+Reveal Mode.
+
+Instead of generating blocks, the game loads an
+Overground Sprite.
+
+Every visible pixel of the overground image acts as a
+destructible block.
+
+When the ball touches a visible pixel:
+
+- The pixel is removed.
+- The image becomes transparent in that area.
+
+This allows creators to make:
+
+- Boss fights
+- Hidden images
+- Reveal puzzles
+- Story scenes
+- Large destructible artwork
+
+Example:
+
+"Mode": "B"
+
+Required:
+
+"Overground_Sprite": "overlay.png"
+
+
+==================================================
+LIVES
+==================================================
+
+Controls how many balls the player receives.
+
+Example:
+
+"Lives": 5
+
+Default:
+
+3
+
+
+==================================================
+DIFFICULTY
+==================================================
+
+Controls how quickly the ball gains speed.
+
+Range:
+
+0 - 10
+
+0
+=
+Ball never accelerates.
+
+10
+=
+Ball accelerates very quickly.
+
+Example:
+
+"Difficulty": 7
+
+Default:
+
+5
+
+
+==================================================
+BALL_STARTING_SPEED
+==================================================
+
+Controls how fast the ball launches.
+
+Range:
+
+0.1 - 1.0
+
+Example:
+
+"Ball_Starting_Speed": 0.75
+
+Default:
+
+0.5
+
+
+==================================================
+BACKGROUND_COLOR
+==================================================
+
+Used when no background image is specified.
+
+Accepts a list of HEX colors.
+
+Example:
+
+"Background_Color": [
+    "#000000"
+]
+
+Default:
+
+["#000000"]
+
+
+==================================================
+BACKGROUND_SPRITE
+==================================================
+
+Loads a background image.
+
+File location:
+
+assets/backgrounds/
+
+Example:
+
+"Background_Sprite": "forest.png"
+
+The image is automatically resized to fit the game window.
+
+If empty, Background_Color is used.
+
+Default:
+
+""
+
+
+==================================================
+BLOCK_COLORS
+==================================================
+
+Used in Mode A.
+
+If no block sprites are supplied, blocks will use these colors.
+
+Example:
+
+"Block_Colors": [
+    "#ff6666",
+    "#ffaa66",
+    "#ffff66"
+]
+
+Default:
+
 [
-    "#000000",
-    "#111111"
+    "#ff6666",
+    "#ffaa66",
+    "#ffff66"
 ]
 
 
-Background_Sprite
------------------
-Type: String
+==================================================
+BLOCK_SPRITES
+==================================================
 
-File name of background image.
+Used in Mode A.
 
-Leave blank to disable.
+Loads custom block graphics.
 
-Example:
-"background.png"
+File location:
 
-
-Block_Colors
-------------
-Type: List of Hex Colors
-
-Colors used for blocks if no block sprites are used.
-
-
-Block_Sprites
--------------
-Type: List of Strings
-
-Image file names for block sprites.
+assets/blocks/
 
 Example:
-[
+
+"Block_Sprites": [
     "brick1.png",
-    "brick2.png"
+    "brick2.png",
+    "brick3.png"
 ]
 
-NOTE:
-Collision still uses rectangle hitboxes.
+The game randomly chooses one sprite for each block.
+
+Sprite Rules:
+
+- Maximum display size is 100x100.
+- Large sprites are scaled down.
+- Smaller sprites are not scaled up.
+- Transparent pixels do not count for collision.
+- Visible pixels are used for collision.
+
+If empty, Block_Colors are used instead.
+
+Default:
+
+[]
 
 
-Spiral_Speed
-------------
-Type: Float (0.0 to 1.0)
+==================================================
+PADDLE_SPRITE
+==================================================
+
+Loads a custom paddle image.
+
+File location:
+
+assets/paddles/
+
+Example:
+
+"Paddle_Sprite": "paddle.png"
+
+The paddle image is scaled to fit the paddle.
+
+If empty, the default paddle is used.
+
+Default:
+
+""
+
+
+==================================================
+OVERGROUND_SPRITE
+==================================================
+
+Used only in Mode B.
+
+File location:
+
+assets/overgrounds/
+
+Example:
+
+"Overground_Sprite": "boss_mask.png"
+
+Rules:
+
+- Automatically scaled to the game window.
+- Visible pixels become destructible.
+- Transparent pixels do not collide.
+
+Useful for:
+
+- Boss fights
+- Reveals
+- Hidden artwork
+- Interactive images
+
+Default:
+
+""
+
+
+==================================================
+SPIRAL_SPEED
+==================================================
 
 Controls spiral rotation speed.
 
-0.0 = No spinning
-1.0 = Very fast spinning
+Example:
+
+"Spiral_Speed": 0.25
+
+0.0
+=
+No movement
+
+Higher values
+=
+Faster rotation
+
+Default:
+
+0.25
 
 
-Spiral_Thickness
-----------------
-Type: Integer
+==================================================
+SPIRAL_THICKNESS
+==================================================
 
-Controls line thickness of spiral.
-
-Higher values make the spiral stronger visually.
-
-
-Spiral_Colors
--------------
-Type: List of Hex Colors
-
-Colors used in the spiral.
-
-At least two recommended.
-
-
-Phrases
--------
-Type: List of Strings
-
-Words or phrases that appear during gameplay.
+Controls spiral line thickness.
 
 Example:
+
+"Spiral_Thickness": 4
+
+Thin spiral:
+
+1
+
+Heavy spiral:
+
+6
+
+Default:
+
+2
+
+
+==================================================
+SPIRAL_COLORS
+==================================================
+
+Colors used by the spiral.
+
+Example:
+
+"Spiral_Colors": [
+    "#ffffff",
+    "#00ffff",
+    "#ff00ff"
+]
+
+At least two colors are recommended.
+
+Default:
+
 [
-    "FOCUS",
-    "DON'T BLINK"
+    "#ffffff",
+    "#999999"
 ]
 
 
-Phrase_Appear_Speed
--------------------
-Type: Float
+==================================================
+PHRASES
+==================================================
 
-How many seconds it takes phrases to fully appear.
-
-Lower values = faster visibility.
-
-
-Phrase_Scroll_Speed
--------------------
-Type: Float
-
-Controls how quickly phrases move across the screen.
-
-
-Phrase_Max_Count
-----------------
-Type: Integer
-
-Maximum number of simultaneous phrases visible.
-
-
-Phrase_Color
-------------
-Type: Hex Color
-
-Color of phrase text.
-
-Leave blank to use white.
+List of phrases displayed during gameplay.
 
 Example:
-"#ffffff"`
+
+"Phrases": [
+    "FOCUS",
+    "KEEP PLAYING",
+    "WATCH THE BALL"
+]
+
+Leave empty to disable phrases.
+
+Default:
+
+[]
+
+
+==================================================
+PHRASE_APPEAR_SPEED
+==================================================
+
+Time in seconds required for phrases to become fully visible.
+
+Example:
+
+"Phrase_Appear_Speed": 15
+
+Default:
+
+20.0
+
+
+==================================================
+PHRASE_SCROLL_SPEED
+==================================================
+
+Controls phrase movement speed.
+
+Example:
+
+"Phrase_Scroll_Speed": 60
+
+Higher values move text faster.
+
+Default:
+
+40
+
+
+==================================================
+PHRASE_MAX_COUNT
+==================================================
+
+Maximum number of visible phrases.
+
+Example:
+
+"Phrase_Max_Count": 12
+
+Higher values create a denser screen.
+
+Default:
+
+6
+
+
+==================================================
+PHRASE_COLOR
+==================================================
+
+Color used for phrase rendering.
+
+Example:
+
+"Phrase_Color": "#00ffff"
+
+Default:
+
+"#ffffff"
+
+
+==================================================
+FILE LOCATIONS
+==================================================
+
+Backgrounds:
+
+assets/backgrounds/
+
+Blocks:
+
+assets/blocks/
+
+Paddles:
+
+assets/paddles/
+
+Mode B Overgrounds:
+
+assets/overgrounds/
+
+Levels:
+
+levels/
+
+
+==================================================
+MODE A EXAMPLE
+==================================================
+
+{
+    "Mode": "A",
+
+    "Lives": 3,
+
+    "Difficulty": 5,
+
+    "Background_Sprite": "space.png",
+
+    "Block_Sprites": [
+        "brick1.png",
+        "brick2.png"
+    ],
+
+    "Paddle_Sprite": "paddle.png",
+
+    "Spiral_Speed": 0.3,
+
+    "Spiral_Thickness": 2,
+
+    "Phrases": [
+        "FOCUS",
+        "KEEP GOING"
+    ]
+}
+
+
+==================================================
+MODE B EXAMPLE
+==================================================
+
+{
+    "Mode": "B",
+
+    "Lives": 5,
+
+    "Difficulty": 7,
+
+    "Background_Sprite": "boss_bg.png",
+
+    "Overground_Sprite": "boss_overlay.png",
+
+    "Paddle_Sprite": "boss_paddle.png",
+
+    "Spiral_Speed": 0.5,
+
+    "Spiral_Thickness": 4,
+
+    "Phrases": [
+        "DON'T LOOK AWAY",
+        "KEEP WATCHING"
+    ]
+}
+
+==================================================
+END OF FILE
+==================================================
