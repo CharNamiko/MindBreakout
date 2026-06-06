@@ -1,3 +1,4 @@
+
 import json
 
 
@@ -7,6 +8,8 @@ def load_level(path):
         data = json.load(f)
 
     defaults = {
+
+        "Mode": "A",
 
         "Lives": 3,
 
@@ -18,9 +21,17 @@ def load_level(path):
 
         "Background_Sprite": "",
 
-        "Block_Colors": ["#ff6666"],
+        "Block_Colors": [
+            "#ff6666",
+            "#ffaa66",
+            "#ffff66"
+        ],
 
         "Block_Sprites": [],
+
+        "Paddle_Sprite": "",
+
+        "Overground_Sprite": "",
 
         "Spiral_Speed": 0.25,
 

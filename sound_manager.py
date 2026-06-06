@@ -5,10 +5,14 @@ import numpy as np
 SAMPLE_RATE = 44100
 
 
+# -----------------------------------
+# BASIC TONE GENERATOR
+# -----------------------------------
+
 def generate_tone(
     frequency=440,
     duration=0.1,
-    volume=0.1,
+    volume=0.5,
     wave_type="square"
 ):
 
@@ -19,18 +23,14 @@ def generate_tone(
         False
     )
 
+    # SQUARE WAVE
     if wave_type == "square":
 
         wave = np.sign(
             np.sin(2 * np.pi * frequency * t)
         )
 
-    elif wave_type == "sine":
-
-        wave = np.sin(
-            2 * np.pi * frequency * t
-        )
-
+    # SINE WAVE
     else:
 
         wave = np.sin(
@@ -67,7 +67,6 @@ def generate_drone():
         False
     )
 
-    # MULTIPLE SOFT SINE WAVES
     wave1 = np.sin(
         2 * np.pi * 110 * t
     )
@@ -86,7 +85,6 @@ def generate_drone():
         + wave3 * 0.2
     )
 
-    # VERY SOFT
     combined *= 0.12
 
     audio = combined * 32767
@@ -103,53 +101,118 @@ def generate_drone():
 
 
 # -----------------------------------
-# GAME SOUNDS
+# SYNTH VOICE
+# -----------------------------------
+
+def generate_voice_tone(frequency):
+
+    duration = 2.0
+
+    t = np.linspace(
+        0,
+        duration,
+        int(SAMPLE_RATE * duration),
+        False
+    )
+
+    base = np.sin(
+        2 * np.pi * frequency * t
+    )
+
+    mod = np.sin(
+        2 * np.pi * 6 * t
+    )
+
+    wave = base * (
+        0.5 + 0.5 * mod
+    )
+
+    wave *= 0.18
+
+    audio = wave * 32767
+
+    audio = audio.astype(np.int16)
+
+    stereo_audio = np.column_stack(
+        (audio, audio)
+    )
+
+    return pygame.sndarray.make_sound(
+        stereo_audio
+    )
+
+
+# -----------------------------------
+# GAMEPLAY SOUNDS
 # -----------------------------------
 
 paddle_sound = generate_tone(
     frequency=220,
     duration=0.05,
-    volume=0.1,
+    volume=0.4,
     wave_type="square"
 )
 
 brick_sound = generate_tone(
     frequency=440,
     duration=0.04,
-    volume=0.1,
+    volume=0.35,
     wave_type="square"
 )
 
 launch_sound = generate_tone(
     frequency=660,
     duration=0.08,
-    volume=0.1,
+    volume=0.4,
     wave_type="square"
 )
 
 lose_life_sound = generate_tone(
     frequency=120,
     duration=0.2,
-    volume=0.1,
+    volume=0.5,
     wave_type="square"
 )
+
+
+# -----------------------------------
+# MENU SOUNDS
+# -----------------------------------
 
 menu_move_sound = generate_tone(
     frequency=500,
     duration=0.03,
-    volume=0.1,
+    volume=0.25,
     wave_type="square"
 )
 
 menu_select_sound = generate_tone(
     frequency=800,
     duration=0.06,
-    volume=0.1,
+    volume=0.35,
     wave_type="square"
 )
+
 
 # -----------------------------------
 # AMBIENT DRONE
 # -----------------------------------
 
 ambient_drone = generate_drone()
+
+
+# -----------------------------------
+# HYPNOSIS VOICES
+# -----------------------------------
+
+voice_relax = generate_voice_tone(
+    140
+)
+
+voice_focus = generate_voice_tone(
+    180
+)
+
+voice_breathe = generate_voice_tone(
+    120
+)

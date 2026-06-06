@@ -1,4 +1,7 @@
+
 {
+    "Mode": "A",
+
     "Lives": 3,
 
     "Difficulty": 4,
@@ -9,7 +12,7 @@
         "#050505"
     ],
 
-    "Background_Sprite": "",
+    "Background_Sprite": "space.png",
 
     "Block_Colors": [
         "#ff6666",
@@ -18,7 +21,14 @@
         "#66ffcc"
     ],
 
-    "Block_Sprites": [],
+    "Block_Sprites": [
+        "brick1.png",
+        "brick2.png"
+    ],
+
+    "Paddle_Sprite": "paddle.png",
+
+    "Overground_Sprite": "",
 
     "Spiral_Speed": 0.35,
 
@@ -32,15 +42,8 @@
 
     "Phrases": [
         "FOCUS",
-        "KEEP LOOKING",
-        "THE BALL KNOWS",
         "DON'T BLINK",
-        "YOU ARE STILL PLAYING",
-        "STAY ON TARGET",
-        "IT GETS HARDER TO IGNORE",
-        "WATCH THE CENTER",
-        "THE SPIRAL IS MOVING",
-        "YOU CAN STILL WIN"
+        "KEEP WATCHING"
     ],
 
     "Phrase_Appear_Speed": 20.0,
